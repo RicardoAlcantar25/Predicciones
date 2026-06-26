@@ -302,7 +302,7 @@ def save_prediction_to_log(data: dict):
         logger.error(f"Error al escribir predictions_log.json: {e}")
 
 # Sidebar navegación
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/a/a4/2026_FIFA_World_Cup_Logo.svg", width=120)
+st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2026_FIFA_World_Cup_Logo.svg/250px-2026_FIFA_World_Cup_Logo.svg.png", width=120)
 st.sidebar.markdown("### Navegación")
 page = st.sidebar.radio(
     "Selecciona una pestaña:",

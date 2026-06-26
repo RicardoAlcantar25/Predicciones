@@ -49,83 +49,178 @@ st.set_page_config(
 st.markdown("""
 <style>
     /* Estilos generales */
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
     
     html, body, [class*="css"] {
         font-family: 'Outfit', sans-serif;
     }
     
-    .main {
-        background: linear-gradient(135deg, #0e1117 0%, #161b22 100%);
-        color: #f0f6fc;
+    /* Contenedores Principales */
+    [data-testid="stAppViewContainer"] {
+        background: radial-gradient(circle at 50% 50%, #161b22 0%, #0d1117 100%) !important;
+        color: #f0f6fc !important;
     }
     
-    /* Encabezados y títulos */
+    [data-testid="stHeader"] {
+        background: transparent !important;
+    }
+    
+    .block-container {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #0b0e14 !important;
+        border-right: 1px solid rgba(48, 54, 65, 0.6) !important;
+    }
+    
+    /* Título Héroe con gradiente animado */
     .hero-title {
-        font-size: 3rem;
+        font-size: 3.5rem;
         font-weight: 800;
         background: linear-gradient(90deg, #ff4b4b 0%, #ff8533 50%, #ffcc00 100%);
+        background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.2rem;
         padding-top: 1rem;
+        animation: shine 4s linear infinite;
+    }
+    
+    @keyframes shine {
+        to { background-position: 200% center; }
     }
     
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         text-align: center;
         color: #8b949e;
-        margin-bottom: 2rem;
-        font-weight: 300;
+        margin-bottom: 2.5rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
     }
     
-    /* Contenedores con efecto cristal / Glassmorphism */
+    /* Contenedores Glassmorphism */
     .card {
-        background: rgba(22, 27, 34, 0.6);
-        border: 1px solid rgba(48, 54, 65, 0.8);
-        border-radius: 12px;
+        background: rgba(22, 27, 34, 0.45);
+        border: 1px solid rgba(48, 54, 65, 0.7);
+        border-radius: 16px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(88, 166, 255, 0.3);
+        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.08);
     }
     
     .metric-card {
         background: linear-gradient(145deg, #1c2128 0%, #161b22 100%);
-        border: 1px solid rgba(88, 166, 255, 0.2);
-        border-radius: 10px;
-        padding: 1rem;
+        border: 1px solid rgba(88, 166, 255, 0.15);
+        border-radius: 14px;
+        padding: 1.25rem;
         text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+    }
+    
+    .metric-card:hover {
+        transform: scale(1.02);
+        border-color: rgba(88, 166, 255, 0.4);
+        box-shadow: 0 8px 25px rgba(88, 166, 255, 0.1);
     }
     
     .metric-value {
-        font-size: 2.2rem;
+        font-size: 2.3rem;
         font-weight: 800;
         color: #58a6ff;
+        text-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
     }
     
     .metric-label {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: #8b949e;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
+        font-weight: 600;
     }
     
-    /* Probabilidades badges */
+    /* Botones Premium con gradiente */
+    div.stButton > button {
+        background: linear-gradient(90deg, #ff4b4b 0%, #ff8533 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+        padding: 0.6rem 1.8rem !important;
+        font-weight: 600 !important;
+        border-radius: 10px !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        box-shadow: 0 4px 15px rgba(255, 75, 75, 0.25) !important;
+    }
+    
+    div.stButton > button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 25px rgba(255, 75, 75, 0.45) !important;
+        background: linear-gradient(90deg, #ff6262 0%, #ff964f 100%) !important;
+    }
+    
+    div.stButton > button:active {
+        transform: translateY(1px) !important;
+    }
+    
+    /* Personalización de Inputs de Streamlit */
+    div[data-baseweb="select"] > div, input {
+        background-color: rgba(22, 27, 34, 0.7) !important;
+        border: 1px solid rgba(48, 54, 65, 0.8) !important;
+        color: #f0f6fc !important;
+        border-radius: 10px !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    div[data-baseweb="select"] > div:hover, input:hover {
+        border-color: rgba(88, 166, 255, 0.5) !important;
+    }
+    
+    /* Expanders Premium */
+    div.stExpander {
+        background: rgba(22, 27, 34, 0.45) !important;
+        border: 1px solid rgba(48, 54, 65, 0.7) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        overflow: hidden !important;
+    }
+    
+    div.stExpander details summary {
+        font-weight: 600 !important;
+        color: #c9d1d9 !important;
+        padding: 0.5rem 1rem !important;
+        transition: color 0.3s ease !important;
+    }
+    
+    div.stExpander details summary:hover {
+        color: #58a6ff !important;
+    }
+    
+    /* Badges de Probabilidad */
     .prob-badge {
         font-size: 1.1rem;
         font-weight: 600;
-        padding: 0.3rem 0.8rem;
-        border-radius: 6px;
+        padding: 0.35rem 0.9rem;
+        border-radius: 8px;
         display: inline-block;
         margin-right: 0.5rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     
-    .prob-win { background-color: rgba(46, 160, 67, 0.25); color: #3fb950; border: 1px solid rgba(46, 160, 67, 0.4); }
-    .prob-draw { background-color: rgba(139, 148, 158, 0.25); color: #c9d1d9; border: 1px solid rgba(139, 148, 158, 0.4); }
-    .prob-loss { background-color: rgba(248, 81, 81, 0.25); color: #f85149; border: 1px solid rgba(248, 81, 81, 0.4); }
+    .prob-win { background-color: rgba(46, 160, 67, 0.2); color: #3fb950; border: 1px solid rgba(46, 160, 67, 0.35); }
+    .prob-draw { background-color: rgba(139, 148, 158, 0.2); color: #c9d1d9; border: 1px solid rgba(139, 148, 158, 0.35); }
+    .prob-loss { background-color: rgba(248, 81, 81, 0.2); color: #f85149; border: 1px solid rgba(248, 81, 81, 0.35); }
 </style>
 """, unsafe_allow_html=True)
 

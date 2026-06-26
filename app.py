@@ -1097,37 +1097,59 @@ elif page == "📋 Registro de Predicciones":
                 # Mercados secundarios
                 col_det_sec1, col_det_sec2 = st.columns(2)
                 with col_det_sec1:
-                    st.markdown('<div class="card">', unsafe_allow_html=True)
-                    st.markdown("#### ⚽ Mercado Over/Under 2.5 Goles")
-                    st.write(f"📈 **Over 2.5 Goles**: {p['over_25_prob']:.1f}% (Cuota Justa: **{100/p['over_25_prob']:.2f}**)" if p['over_25_prob'] > 0 else "")
-                    st.write(f"📉 **Under 2.5 Goles**: {p['under_25_prob']:.1f}% (Cuota Justa: **{100/p['under_25_prob']:.2f}**)" if p['under_25_prob'] > 0 else "")
-                    st.markdown('</div>', unsafe_allow_html=True)
+                    over_odds = f"{100/p['over_25_prob']:.2f}" if p.get('over_25_prob', 0) > 0 else "999.00"
+                    under_odds = f"{100/p['under_25_prob']:.2f}" if p.get('under_25_prob', 0) > 0 else "999.00"
+                    over_under_html = f"""
+                    <div class="card" style="min-height: 180px;">
+                        <h4 style="margin-top: 0; color: #58a6ff;">⚽ Mercado Over/Under 2.5 Goles</h4>
+                        <p style="margin: 0.5rem 0; font-size: 1.05rem;">📈 <b>Over 2.5 Goles</b>: {p['over_25_prob']:.1f}% (Cuota Justa: <b>{over_odds}</b>)</p>
+                        <p style="margin: 0.5rem 0; font-size: 1.05rem;">📉 <b>Under 2.5 Goles</b>: {p['under_25_prob']:.1f}% (Cuota Justa: <b>{under_odds}</b>)</p>
+                    </div>
+                    """
+                    st.markdown(over_under_html, unsafe_allow_html=True)
                     
                 with col_det_sec2:
-                    st.markdown('<div class="card">', unsafe_allow_html=True)
-                    st.markdown("#### 🤝 Mercado Ambos Anotan (BTTS)")
-                    st.write(f"✅ **Ambos Anotan (Sí)**: {p['btts_yes_prob']:.1f}% (Cuota Justa: **{100/p['btts_yes_prob']:.2f}**)" if p['btts_yes_prob'] > 0 else "")
-                    st.write(f"❌ **Ambos Anotan (No)**: {p['btts_no_prob']:.1f}% (Cuota Justa: **{100/p['btts_no_prob']:.2f}**)" if p['btts_no_prob'] > 0 else "")
-                    st.markdown('</div>', unsafe_allow_html=True)
+                    btts_yes_odds = f"{100/p['btts_yes_prob']:.2f}" if p.get('btts_yes_prob', 0) > 0 else "999.00"
+                    btts_no_odds = f"{100/p['btts_no_prob']:.2f}" if p.get('btts_no_prob', 0) > 0 else "999.00"
+                    btts_html = f"""
+                    <div class="card" style="min-height: 180px;">
+                        <h4 style="margin-top: 0; color: #ff8533;">🤝 Mercado Ambos Anotan (BTTS)</h4>
+                        <p style="margin: 0.5rem 0; font-size: 1.05rem;">✅ <b>Ambos Anotan (Sí)</b>: {p['btts_yes_prob']:.1f}% (Cuota Justa: <b>{btts_yes_odds}</b>)</p>
+                        <p style="margin: 0.5rem 0; font-size: 1.05rem;">❌ <b>Ambos Anotan (No)</b>: {p['btts_no_prob']:.1f}% (Cuota Justa: <b>{btts_no_odds}</b>)</p>
+                    </div>
+                    """
+                    st.markdown(btts_html, unsafe_allow_html=True)
                 
                 # Picks de Valor y Marcadores
                 col_det_pks, col_det_scs = st.columns(2)
                 with col_det_pks:
-                    st.markdown('<div class="card" style="border-color: #3fb950; min-height: 250px;">', unsafe_allow_html=True)
-                    st.markdown("#### 🔥 Picks de Valor Identificados")
+                    picks_list_html = ""
                     if p.get("picks"):
                         for pick in p["picks"]:
-                            st.write(f"🟢 **{pick}**")
+                            picks_list_html += f'<p style="margin: 0.5rem 0; font-size: 1.05rem; color: #3fb950;">🟢 <b>{pick}</b></p>'
                     else:
-                        st.write("No se identificaron picks con ventaja suficiente en esta predicción.")
-                    st.markdown('</div>', unsafe_allow_html=True)
+                        picks_list_html = '<p style="margin: 0.5rem 0; font-size: 1.05rem; color: #8b949e;">No se identificaron picks con ventaja suficiente.</p>'
+                        
+                    picks_html = f"""
+                    <div class="card" style="border-color: #3fb950; min-height: 250px;">
+                        <h4 style="margin-top: 0; color: #3fb950;">🔥 Picks de Valor Identificados</h4>
+                        {picks_list_html}
+                    </div>
+                    """
+                    st.markdown(picks_html, unsafe_allow_html=True)
                     
                 with col_det_scs:
-                    st.markdown('<div class="card" style="min-height: 250px;">', unsafe_allow_html=True)
-                    st.markdown("#### 🔢 Marcadores Más Probables")
+                    scores_list_html = ""
                     for score in p["top_scores"]:
-                        st.write(f"⚽ **{score}**")
-                    st.markdown('</div>', unsafe_allow_html=True)
+                        scores_list_html += f'<p style="margin: 0.5rem 0; font-size: 1.05rem; color: #f0f6fc;">⚽ <b>{score}</b></p>'
+                        
+                    scores_html = f"""
+                    <div class="card" style="min-height: 250px;">
+                        <h4 style="margin-top: 0; color: #58a6ff;">🔢 Marcadores Más Probables</h4>
+                        {scores_list_html}
+                    </div>
+                    """
+                    st.markdown(scores_html, unsafe_allow_html=True)
 
 # ──────────────────────────────────────────────────────────────────────────────
 # PESTAÑA 3: SIMULAR MUNDIAL 2026

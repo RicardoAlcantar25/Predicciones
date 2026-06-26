@@ -1,0 +1,24 @@
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Streamlit logs and configs
+.streamlit/
+stderr.log
+stdout.log
+
+# Registry logs
+predictions_log.json
+
+# IDEs
+.vscode/
+.idea/
+.gemini/

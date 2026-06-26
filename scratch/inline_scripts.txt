@@ -1,0 +1,378 @@
+
+
+=== SCRIPT 0 (text/javascript) ===
+!function () { var e = function () { var e, t = "__tcfapiLocator", a = [], n = window; for (; n;) { try { if (n.frames[t]) { e = n; break } } catch (e) { } if (n === window.top) break; n = n.parent } e || (!function e() { var a = n.document, r = !!n.frames[t]; if (!r) if (a.body) { var i = a.createElement("iframe"); i.style.cssText = "display:none", i.name = t, a.body.appendChild(i) } else setTimeout(e, 5); return !r }(), n.__tcfapi = function () { for (var e, t = arguments.length, n = new Array(t), r = 0; r < t; r++)n[r] = arguments[r]; if (!n.length) return a; if ("setGdprApplies" === n[0]) n.length > 3 && 2 === parseInt(n[1], 10) && "boolean" == typeof n[3] && (e = n[3], "function" == typeof n[2] && n[2]("set", !0)); else if ("ping" === n[0]) { var i = { gdprApplies: e, cmpLoaded: !1, cmpStatus: "stub" }; "function" == typeof n[2] && n[2](i) } else a.push(n) }, n.addEventListener("message", (function (e) { var t = "string" == typeof e.data, a = {}; try { a = t ? JSON.parse(e.data) : e.data } catch (e) { } var n = a.__tcfapiCall; n && window.__tcfapi(n.command, n.version, (function (a, r) { var i = { __tcfapiReturn: { returnValue: a, success: r, callId: n.callId } }; t && (i = JSON.stringify(i)), e.source.postMessage(i, "*") }), n.parameter) }), !1)) }; "undefined" != typeof module ? module.exports = e : e() }();
+
+=== SCRIPT 1 (no-type) ===
+window._sp_ = {
+    config: {"accountId":1254,"propertyId":7429,"gdpr":{"consentLanguage":"es","targetingParams":{"acps":"false"}},"baseEndpoint":"https://cdn.privacy-mgmt.com","isSPA":true,"cpPropertyId":"b117d02e"}}
+
+=== SCRIPT 3 (text/javascript) ===
+(function() {
+        var cpBaseUrl = 'https://cp.transfermarkt.es';
+        var cpController = cpBaseUrl + '/now.js';
+        var cpPropertyId = 'b117d02e';
+
+        !function(C,o,n,t,P,a,s){C['CPObject']=n;C[n]||(C[n]=function(){
+        (C[n].q=C[n].q||[]).push(arguments)});C[n].l=+new Date;a=o.createElement(t);
+        s=o.getElementsByTagName(t)[0];a.src=P;s.parentNode.insertBefore(a,s)}
+        (window,document,'cp','script',cpController);
+
+        !function(C,o,n,t,P){if(!C[n].patched){cp('extension','authenticate');P=C[n].q.push;
+        C[n].q.push=function(a){if(a[0]==='authenticate'){if((o['cookie']||'').indexOf('_cpauthhint=')===-1&&
+        !(C['localStorage']||{})['_cpuser']&&C.location.href.toLowerCase().indexOf('cpauthenticated')===-1){
+        t={isLoggedIn:function(){return false;},hasValidSubscription:function(){return false;}};
+        (typeof a[1]==='function'&&a[1](null,t));C[n].afp=true;P.apply(C[n].q,[['authenticate',null]]);
+        return t;}}P.apply(C[n].q,[a]);}}}
+        (window,document,'cp',false);
+
+        cp('create', cpPropertyId, {
+        baseUrl: cpBaseUrl
+        });
+
+        cp('render', {
+        onFullConsent: function() {
+            console.log('[DEMO] onFullConsent');
+        }
+        })
+    })()
+
+=== SCRIPT 4 (text/javascript) ===
+(function () {
+    cp('authenticate', function(err, user) {
+        if (err || (!user.isLoggedIn() && !user.hasValidSubscription())) {
+        // console.log('[SPCP] Taking fast path');
+        (function spExecMsg() {
+            if (window._sp_ && window._sp_.executeMessaging) {
+            if (!window._sp_.config.isSPA) {
+                // console.warn('[SPCP] Sourcepoint not in SPA mode!');
+            } else if (window._sp_.version) {
+                // console.log('[SPCP] Sourcepoint already running');
+            } else {
+                // console.log('[SPCP] Starting Sourcepoint');
+                window._sp_.executeMessaging();
+            }
+            } else {
+            // console.log('[SPCP] Sourcepoint not loaded yet. Retrying.');
+            setTimeout(spExecMsg, 10);
+            }
+        })();
+        }
+    });
+    })();
+
+=== SCRIPT 15 (text/javascript) ===
+/*<![CDATA[*/
+console.info("%c [TM-ADs] Initialize Ads on domain .es (live/begegnung)", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot skyscraper (/58778164/d_right_1) for google", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot billboard (/58778164/d_top_1) for google", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Render slot fullsize_contentad (/58778164/d_bottom_1) for google", "background: #282828; color: #bada55")
+    var oddsServe = function(placement,competition,match,node) {
+        if (!node){
+            var s=document.readyState==='loading'?document.getElementsByTagName('script'):[];
+            node=s.length?s[s.length-1].parentNode:null;
+        }
+        oddsServe.queue.push({contentUnitId:placement,competition:competition,match:match,node:node});
+    }
+    
+    oddsServe.onInit=function(callbacks){
+        if (typeof window.__tcfapi === 'function') {
+            __tcfapi('addEventListener', 2, function(tcdata, success) {
+                let tcf20compatibleString;
+                if(success) {
+                    if (tcdata.eventStatus === 'useractioncomplete') {
+                        tcf20compatibleString = tcdata.tcString;
+                    } else if (tcdata.eventStatus === 'tcloaded') {
+                        tcf20compatibleString = tcdata.tcString;
+                    }
+                    callbacks.setGdprOptions({
+                        gdpr:1,
+                        gdpr_pd:1,
+                        gdpr_consent:tcf20compatibleString,
+                    });
+                }
+            });
+        } else {
+            console.warn('E2: __tcfapi not found');
+        }
+    };
+    oddsServe.options={gdpr_wait:true};
+    oddsServe.queue=[];
+console.info("%c [TM-ADs] Add adslot configuration for 3 ad slots skyscraper | billboard | fullsize_contentad", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Adslots without configuration: fireplace | skyscraper-left-bound | skyscraperbtf | richmedia | 1by1px", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Register slots with JS vendor lib", "background: #282828; color: #bada55")
+window.addEventListener('load', () => {
+  const offset = window.matchMedia('(max-width: 768px)').matches ? 80 : 120;
+  document.querySelectorAll('[data-sticky]').forEach(node => {
+    const parent = node.parentElement;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) {
+        parent.style.position = 'sticky';
+        parent.style.top = `${offset}px`;
+        parent.style.zIndex = 12000000;
+        setTimeout(() => {
+          parent.style.removeProperty('position');
+          parent.style.removeProperty('top');
+          parent.style.removeProperty('z-index');
+        }, parseInt(node.dataset?.sticky) || 3000);
+        observer.unobserve(parent);
+      }
+    }, { rootMargin: `-${offset}px 0px 0px 0px`, threshold: 1 });
+    observer.observe(parent);
+  });
+});
+
+console.info("%c [TM-ADs] Render ad slots js for googleinhouse", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Added external ad script https://securepubads.g.doubleclick.net/tag/js/gpt.js for googleadvertising on live", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Added external ad script https://tmsi.akamaized.net/js/ad-setup/prebid/prebid.js for googleadvertising on live", "background: #282828; color: #bada55")
+console.info("%c [TM-ADs] Added external ad script https://tmsi.akamaized.net/js/ad-setup/prebid/scripts/es.js for googleadvertising on live", "background: #282828; color: #bada55")
+/*]]>*/
+
+=== SCRIPT 16 (text/javascript) ===
+tmData = {
+       loggedIn : "0",
+       tmTraffic: "0",
+   };
+
+=== SCRIPT 17 (no-type) ===
+const urlParams = new URLSearchParams(window.location.search);
+    let utmVars = {
+        eVar1: urlParams.get('utm_campaign'),
+        eVar6: urlParams.get('utm_source'),
+        eVar24: urlParams.get('utm_medium')
+    };
+    Object.keys(utmVars).forEach((k) => utmVars[k] == null && delete utmVars[k]);
+
+    window.tmAnalyticsDataLayer = window.tmAnalyticsDataLayer || [];
+    window.tmAnalytics = {
+        dimensions: {
+            eVar10: '',
+			...utmVars,
+            evar19: window.location.href,
+            eVar35 : '',
+			eVar37 : '',
+    },
+    properties: {
+        prop2: 'live',
+		prop3: 'ticker',
+		prop4: '4776650',
+		prop5: '',
+		prop14: 'live_ticker_4776650_',
+		prop9: window.location.hostname,
+        prop10: window.location.href,
+        prop1 : 'false',
+    },
+    pageDetails: {
+        pageViews: {
+            value: 1
+        },
+        isErrorPage: 'false',
+            isHomepage: 'false',
+            name: 'Comentarios en directo - Bosnia-Herzegovina : Catar | Transfermarkt',
+            URL: window.location.href,
+            server: 'prod-tm-web-server-11146'
+    },
+    };
+
+function tmEventForLink(category, aTag, label) {
+    const url = new URL(aTag.href);
+    const link = url.pathname + url.search;
+    tmEvent(category, link, label);
+}
+
+function tmEvent(category, action, label, detail = '') {
+    if (typeof gtag === 'function') {
+        gtag('event',
+            action,
+            {
+                'event_category': category,
+                'event_label': label
+            }
+        );
+    }
+
+    const ev = {
+        event: 'tmEvent',
+        tmEvent: {
+            customDimensions: {
+                eVars: {
+                    ...tmAnalytics.dimensions
+                },
+                props: {
+                    prop6: category,
+                    prop7: action,
+                    prop8: label,
+                    prop17: detail,
+                    ...tmAnalytics.properties
+                }
+            },
+            event1to100: {
+                event7: {
+                    value: 1
+                },
+                event8: null,
+            },
+            session: {
+                web: {
+                    webInteraction: {
+                        linkClicks: {
+                            value: 1
+                        }
+                    },
+                    webPageDetails: {
+                        ...tmAnalytics.pageDetails,
+                        ...{
+                            pageViews: {
+                                value: null
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+     if (!window._satellite) {
+        once = false;
+        window._satellite = { _monitors: [{
+            ruleTriggered: (e) => {
+                if (once) {
+                    return;
+                }
+                once = true;
+                setTimeout(() => {
+                    tmAnalyticsDataLayer.push(ev);
+                    tmAnalyticsDataLayer.push(function (dl) {
+                        const state = dl.getState();
+                    });
+                }, 1);
+            }
+        }] };
+    } else {
+        tmAnalyticsDataLayer.push(ev);
+        tmAnalyticsDataLayer.push(function (dl) {
+            const state = dl.getState();
+        });
+    }
+}
+function tmTrackingAndAds() {
+    if (typeof gtag === 'function') {
+        gtag("event", "page_view", {
+            page_path: "/jsContent" + window.location.pathname
+        });
+    }
+
+    tmAnalyticsDataLayer.push({
+        event: 'tmTrackingAndAds',
+        tmTrackingAndAds: {
+            customDimensions: {
+                eVars: tmAnalytics.dimensions,
+                props: tmAnalytics.properties
+            },
+            event1to100: {
+                event7: null,
+                event8: {
+                    value: 1
+                }
+            },
+            session: {
+                web: {
+                    webInteraction: {
+                        linkClicks: {
+                            value: null
+                        }
+                    },
+                    webPageDetails: {
+                        ...tmAnalytics.pageDetails,
+                        ...{
+                            pageViews: {
+                                value: 1
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+    tmAnalyticsDataLayer.push(function (dl) {
+        const state = dl.getState();
+    });
+}
+function tmTiming(value, name, event_category, event_label) {
+    console.log('tmTiming', value, name, event_category, event_label);
+}
+
+        !function(e,a,n,t){var i=e.head;if(i){
+            if (a) return;
+            var o=e.createElement("style");
+            o.id="alloy-prehiding",o.innerText=n,i.appendChild(o),setTimeout(function(){o.parentNode&&o.parentNode.removeChild(o)},t)}}
+        (document, document.location.href.indexOf("adobe_authoring_enabled") !== -1, ".personalization-container { opacity: 0 !important }", 3000);
+
+            !function(n,o){o.forEach(function(o){n[o]||((n.__alloyNS=n.__alloyNS||
+                []).push(o),n[o]=function(){var u=arguments;return new Promise(
+                function(i,l){n[o].q.push([i,l,u])})},n[o].q=[])})}
+            (window,["alloy"]);
+
+=== SCRIPT 19 (text/javascript) ===
+window.tmGaId = "UA-3816204-13";
+
+        function sendIvwData() {}
+
+=== SCRIPT 20 (text/javascript) ===
+$('.watchlistButtonClass').on("click", function () {
+            $('#watchlistInfo').insertAfter('#main');
+            new Foundation.Reveal($('#BegegnungWatchlistInfo')).open();
+        });
+
+=== SCRIPT 21 (no-type) ===
+/* spieleliste ein-/ausblenden */
+    $(".arrow-bottom").click(function () {
+        $(this).toggleClass("arrow-top");
+        $(".sb-begegnungsliste-small-link").toggleClass("hide");
+    });
+
+=== SCRIPT 22 (text/javascript) ===
+(() => {
+        const cookies = document.cookie
+            .split(';')
+            .map(c => c.trim().split('='))
+            .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+        const isContentPassUser = cookies?._cpauthhint !== undefined;
+        if (isContentPassUser) {
+            const adNodes = document.querySelectorAll('.ad-placement-note');
+            adNodes.forEach(node => node.remove());
+        }
+    })();
+
+=== SCRIPT 23 (text/javascript) ===
+if(typeof(adet) == "boolean" && adet == false){
+		img_src="/static/singlepictures/jk99hhfsdh209nbnkjldgh90sghfsdlk";
+	} else {
+		img_src="/static/singlepictures/jku90whjlkjbwbta1g4b8h89fh8sgh8d";
+	}
+	var elem = document.createElement("img");
+	document.body.appendChild(elem);
+	elem.src = img_src;
+
+=== SCRIPT 24 (no-type) ===
+document.addEventListener('DOMContentLoaded', function() {
+                var cnt = document.querySelectorAll('div.large-4.columns').length;
+                if (cnt == 1) {
+                    var sidebarDiv = document.querySelector('div.large-4.columns');
+                    if (sidebarDiv !== null) {
+                        var sidebar = document.getElementById('werbung_recommender_sidebar_wrapper');
+                        sidebarDiv.appendChild(sidebar);
+                        sidebar.style.display = 'block';
+                    }
+                }
+            });
+
+=== SCRIPT 35 (text/javascript) ===
+/*<![CDATA[*/
+	var loginUrl='/profil/login';
+	var onlyDE = '';
+	var onlyMobile = '';
+	var onlyTablet = '';
+	var getUserID = '';
+
+/*]]>*/
